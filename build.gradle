@@ -1,0 +1,23 @@
+
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '2.0.1'
+}
+
+mainClassName = 'cah.secretary.Bot' //'com.example.jda.Bot' https://i.imgur.com/HBdVeLw.png
+
+version '1.0'
+def jdaVersion = '3.5.1_339'
+
+sourceCompatibility = 1.8
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile "net.dv8tion:JDA:$jdaVersion"
+}
+
+compileJava.options.encoding = 'UTF-8'
