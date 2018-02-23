@@ -5,7 +5,7 @@ import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
-public class WelcomeMessage extends ListenerAdapter {
+public class Welcome extends ListenerAdapter {
     //@Override
     public void onGuildMemberJoin​(GuildMemberJoinEvent event) {
         MessageChannel channel = event.getMember().getDefaultChannel();

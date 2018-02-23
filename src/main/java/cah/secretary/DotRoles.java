@@ -8,7 +8,7 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import java.util.List;
 
-public class Roles extends ListenerAdapter {
+public class DotRoles extends ListenerAdapter {
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         if (event.getAuthor().isBot()) return;
@@ -16,18 +16,13 @@ public class Roles extends ListenerAdapter {
         String content = message.getContentRaw();
         if (content.equals(".roles")) {
             MessageChannel channel = event.getChannel();
-            List<Role> listOfRoles = event.getGuild().getRoles();
-            //channel.sendMessage(String.valueOf(listOfRoles.size())).queue(); //test line
-            String roles = listOfRoles.get(0).getName();
-            for (int i = 1; i < listOfRoles.size(); i++) {
-                roles += ", " + listOfRoles.get(i).getName();
-
+            List<Role> rolesList = event.getGuild().getRoles();
+            //channel.sendMessage(String.valueOf(rolesList.size())).queue(); //test line
+            String roles = rolesList.get(0).getName();
+            for (int i = 1; i < rolesList.size(); i++) {
+                roles += ", " + rolesList.get(i).getName();
             }
             channel.sendMessage("The following roles are available for self-assigning: ```" + roles + "```").queue(); // Important to call .queue() on the RestAction returned by sendMessage(...)
         }
-    }
-
-    public void getRoles() {
-
     }
 }
