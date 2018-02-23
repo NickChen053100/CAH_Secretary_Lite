@@ -1,81 +1,42 @@
 # CAH_Secretary
 
-One Paragraph of project description goes here
+CAH Secretary is a Discord Bot made for College Admissions Hub, a Discord server for High School Students, College Applicants, Undergrads, Alumni, and more.
+It currently supports features such as:
+* A Welcome Message within the default channel for each new member, a direct message linking the new member to a short quiz on the rules of the server
+* A dynamic .roles command that lists out all of the available roles for self-assigning
+* .role and .derole commands that allow users to self-assign and remove roles
 
 ## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
 
 What things you need to install the software and how to install them
 
-```
-Give examples
-```
+* Discord
 
-### Installing
+* An IDE that can run Java
 
-A step by step series of examples that tell you have to get a development env running
+* Discord Bot API [Instructions by JDA here](https://github.com/DV8FromTheWorld/JDA/wiki/3\)-Getting-Started)  
 
-Say what the step will be
+## Before Deployment
 
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
+* In CAH_Secretary/src/main/java/cah/secretary/Bot.java, replace the token within the parenthesis after .setToken with your own, as shown in the Discord Bot Setup shown above.
+* In CAH_Secretary/src/main/java/cah/secretary/DotRoles.java, replace the additions to the invalidRolesList with the roles on your server that you don't want users to be able to self assign.
+* Make sure that the Bot role that allows CAH_Secretary to assign roles to members is below all the roles that she shouldn't be able to assign(Server Settings > Roles > drag the role to position)
 
 ## Deployment
-
-Add additional notes about how to deploy this on a live system
-
+1. Download, unzip, and open this repository. 
+2. Follow the Before Deployment instructions above.
+3. * OPTION 1: Run Bot.java
+   * OPTION 2: Run the shadowJar
+   
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [JDA](https://github.com/DV8FromTheWorld/JDA) - The API used
 
 ## Contributing
 
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on their code of conduct, and their process for submitting pull requests. I plan to follow their methodology.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/NickChen053100/CAH_Secretary/tags). 
-
-
-Patch version Z (x.y.Z | x > 0) MUST be incremented if only backwards compatible bug fixes are introduced. A bug fix is defined as an internal change that fixes incorrect behavior.
-
-Minor version Y (x.Y.z | x > 0) MUST be incremented if new, backwards compatible functionality is introduced to the public API. It MUST be incremented if any public API functionality is marked as deprecated. It MAY be incremented if substantial new functionality or improvements are introduced within the private code. It MAY include patch level changes. Patch version MUST be reset to 0 when minor version is incremented.
-
-Major version X (X.y.z | X > 0) MUST be incremented if any backwards incompatible changes are introduced to the public API. It MAY include minor and patch level changes. Patch and minor version MUST be reset to 0 when major version is incremented.
 
 ## Authors
 
@@ -90,3 +51,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Acknowledgments
 
 * Thanks to [PurpleBooth](https://github.com/PurpleBooth) for providing the READ.ME template
+* Thanks to the [Official JDA Discord Guild](https://discord.gg/0hMr4ce0tIl3SLv5) for guiding me through whatever issues I've had
