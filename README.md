@@ -20,8 +20,8 @@ What things you need to install the software and how to install them
 
 ## Before Deployment
 
-* In CAH_Secretary/src/main/java/cah/secretary/Bot.java, replace the token within the parenthesis after .setToken with your own, as shown in the Discord Bot Setup shown above.
-* In CAH_Secretary/src/main/java/cah/secretary/DotRoles.java, replace the additions to the invalidRolesList with the roles on your server that you don't want users to be able to self assign.
+* In ```CAH_Secretary/src/main/java/cah/secretary/Bot.java```, replace the token within the parenthesis after .setToken with your own, as shown in the Discord Bot Setup shown above.
+* In ```CAH_Secretary/src/main/java/cah/secretary/DotRoles.java```, replace the additions to the invalidRolesList with the roles on your server that you don't want users to be able to self assign.
 * Make sure that the Bot role that allows CAH_Secretary to assign roles to members is below all the roles that she shouldn't be able to assign(Server Settings > Roles > drag the role to position)
 
 ## Deployment
