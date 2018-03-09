@@ -9,27 +9,43 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import java.util.List;
 
 public class DotDerole extends ListenerAdapter {
+    private static MessageChannel channel;
+    private static String content;
+    private static List<Role> rolesList;
+    private static String[] restrictedRoles;
+    private static List<Role> userRolesList;
+    private static Role role = null;
+
     public void derole(MessageReceivedEvent event) {
-        MessageChannel channel = event.getChannel();
-        String content = event.getMessage().getContentRaw().substring(8);
-        List<Role> rolesList = event.getGuild().getRoles();
-        Role role = null;
-        boolean match = false;
+        channel = event.getChannel();
+        content = event.getMessage().getContentRaw().substring(8);
+        rolesList = event.getGuild().getRoles();
+        restrictedRoles = Variables.getRestrictedRoles();
+        userRolesList = event.getMember().getRoles();
 
+        if (restricted())
+            return;
+        findRole();
+        applyDerole(event);
+    }
 
-        String[] restrictedRoles = Variables.getRestrictedRoles();
-        //checks if role is in rolesList
-        List<Role> userRolesList = event.getMember().getRoles();
-        //checks if user has Accepted, Committed, or Undergrad roles
+    //checks if user has Accepted, Committed, or Undergrad roles
+    private boolean restricted() {
+        boolean verdict = false;
         for (Role aRole : userRolesList) {
             for (String bRole : restrictedRoles) {
                 if (aRole.getName().equals(bRole)) {
-                    channel.sendMessage("Sorry! " + aRole.getName() + " students can't self remove roles; please contact staff directly if you would like to change your roles!").queue();
-                    return;
+                    channel.sendMessage("Sorry! " + aRole.getName() + " students can't self derole; please contact staff directly if you would like to change your roles!").queue();
+                    verdict = true;
                 }
             }
         }
-        //checks if role is in rolesList
+        return verdict;
+    }
+
+    //checks if role is in rolesList
+    private void findRole() {
+        boolean match = false;
         while (!match) {
             for (Role r : rolesList) {
                 if (r.getName().equals(content)) {
@@ -45,7 +61,10 @@ public class DotDerole extends ListenerAdapter {
                 match = true;
             }
         }
-        //checks if user already has the role
+    }
+
+    //if there is a valid role, it is removed
+    private void applyDerole(MessageReceivedEvent event) {
         if (role != null) {
             try {
                 if (userRolesList.contains(role)) {

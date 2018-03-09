@@ -11,19 +11,15 @@ public class DotMisc extends ListenerAdapter {
         String content = message.getContentRaw();
         MessageChannel channel = event.getChannel();
         if (content.equals(".ping")) {
-
             channel.sendMessage("christ lake").queue(); // Important to call .queue() on the RestAction returned by sendMessage(...)
         }
         if (content.equals("CHINA")) {
-
             channel.sendMessage("NUMBAH 1!").queue(); // Important to call .queue() on the RestAction returned by sendMessage(...)
         }
         if (content.toLowerCase().equals("bot sucks")) {
-
             channel.sendMessage("u suck!").queue(); // Important to call .queue() on the RestAction returned by sendMessage(...)
         }
         if (content.toLowerCase().equals("zexu")) {
-
             channel.sendMessage("yes?").queue(); // Important to call .queue() on the RestAction returned by sendMessage(...)
         }
     }

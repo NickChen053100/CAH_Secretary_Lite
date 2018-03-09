@@ -7,9 +7,9 @@ public class ControlCenter extends ListenerAdapter {
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         if (event.getAuthor().isBot()) return;
-
         String content = event.getMessage().getContentRaw().toLowerCase();
         if (!content.startsWith(".")) return;
+
         //DotDeRole
         if (content.startsWith(".derole ")) {
             DotDerole instance = new DotDerole();

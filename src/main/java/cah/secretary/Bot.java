@@ -3,6 +3,7 @@ package cah.secretary;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
+import net.dv8tion.jda.core.entities.Game;
 
 
 /**
@@ -17,9 +18,6 @@ public class Bot {
         //api.addEventListener(new DotRole());
         //api.addEventListener(new DotDerole());
         api.addEventListener(new ControlCenter());
-
-
-
-
+        api.getPresence().setGame(Game.playing("as ZeXu's slave"));
     }
 }

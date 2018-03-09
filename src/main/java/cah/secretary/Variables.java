@@ -6,11 +6,11 @@ import static java.util.Arrays.asList;
 
 public class Variables {
     //roles that once assigned, can't self assign other roles
-    static String[] restrictedRoles = {
+    private static String[] restrictedRoles = {
             "Accepted", "Committed", "Undergrad"
     };
     //roles that regular users can't self assign
-    static List<String> lockedRoles = asList(
+    private static List<String> lockedRoles = asList(
             "Admin",
             "Dyno",
             "UB3R-B0T",
@@ -34,7 +34,7 @@ public class Variables {
             "MathBot",
             "Botless",
             "IT Guy",
-            "//@everyone"
+            "@everyone"
     );
 
     public static String[] getRestrictedRoles() {

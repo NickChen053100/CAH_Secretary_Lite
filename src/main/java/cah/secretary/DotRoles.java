@@ -8,30 +8,25 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import java.util.List;
 
 public class DotRoles extends ListenerAdapter {
+    private static MessageChannel channel;
+    private static List<Role> rolesList;
+    private static List<String> lockedRoles;
+
     public void roles(MessageReceivedEvent event) {
-        MessageChannel channel = event.getChannel();
-        List<Role> rolesList = event.getGuild().getRoles();
-        //List of roles that aren't self assignable
-        List<String> lockedRoles = Variables.getLockedRoles();
-        channel.sendMessage("Locked roles size: " + lockedRoles.size()).queue(); // test
-
-        String roles1 = "";
-        for (int i = 0; i < rolesList.size() / 2; i++) {
-            if (!(lockedRoles.contains(rolesList.get(i).getName())))
-                roles1 += rolesList.get(i).getName() + ", ";
-        }
+        channel = event.getChannel();
+        rolesList = event.getGuild().getRoles();
+        lockedRoles = Variables.getLockedRoles();
         channel.sendMessage("The following roles are available for self-assigning: ").queue();
-        channel.sendMessage("'" + roles1.substring(0, roles1.length() - 2) + "`").queue();
+        printRoles(0, 2);
+        printRoles(rolesList.size() / 2, 1);
+    }
 
-        String roles2 = "";
-        for (int i = 0; i < rolesList.size() / 2; i++) {
-            if (!(lockedRoles.contains(rolesList.get(i + rolesList.size() / 2).getName())))
-                roles2 += rolesList.get(i + rolesList.size() / 2).getName() + ", ";
+    private void printRoles(int a, int b) {
+        StringBuilder roles = new StringBuilder();
+        for (int i = a; i < rolesList.size() / b; i++) {
+            if (!(lockedRoles.contains(rolesList.get(i).getName())))
+                roles.append(rolesList.get(i).getName()).append(", ");
         }
-        channel.sendMessage("`" + roles2.substring(0, roles1.length() - 2) + "`").queue();
-
-        channel.sendMessage("Locked roles size: " + lockedRoles.size()).queue(); // test
-        channel.sendMessage("roles list size: " + rolesList.size()).queue(); // test
-
+        channel.sendMessage(roles.toString()).queue();
     }
 }

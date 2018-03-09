@@ -9,27 +9,45 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import java.util.List;
 
 public class DotRole extends ListenerAdapter {
+    private static MessageChannel channel;
+    private static String content;
+    private static List<Role> rolesList;
+    private static List<String> lockedRoles;
+    private static String[] restrictedRoles;
+    private static List<Role> userRolesList;
+    private static Role role = null;
+
     public void role(MessageReceivedEvent event) {
-        String content = event.getMessage().getContentRaw().substring(6);
-        List<Role> rolesList = event.getGuild().getRoles();
-        List<String> lockedRoles = Variables.getLockedRoles();
-        Role role = null;
-        MessageChannel channel = event.getChannel();
+        channel = event.getChannel();
+        content = event.getMessage().getContentRaw().substring(6);
+        rolesList = event.getGuild().getRoles();
+        lockedRoles = Variables.getLockedRoles();
+        role = null;
+        restrictedRoles = Variables.getRestrictedRoles();
+        userRolesList = event.getMember().getRoles();
 
+        if (restricted())
+            return;
+        findRole();
+        applyRole(event);
+    }
 
-        String[] restrictedRoles = Variables.getRestrictedRoles();
-        //checks if role is in rolesList
-        List<Role> userRolesList = event.getMember().getRoles();
-
-        //checks if user has Accepted, Committed, or Undergrad roles
+    //checks if user has Accepted, Committed, or Undergrad roles
+    private boolean restricted() {
+        boolean verdict = false;
         for (Role aRole : userRolesList) {
             for (String bRole : restrictedRoles) {
                 if (aRole.getName().equals(bRole)) {
                     channel.sendMessage("Sorry! " + aRole.getName() + " students can't self role; please contact staff directly if you would like to change your roles!").queue();
-                    return;
+                    verdict = true;
                 }
             }
         }
+        return verdict;
+    }
+
+    //checks if role is in rolesList
+    private void findRole() {
         boolean match = false;
         while (!match) {
             for (Role r : rolesList) {
@@ -46,8 +64,10 @@ public class DotRole extends ListenerAdapter {
                 match = true;
             }
         }
-        //checks if user already has the role
+    }
 
+    //if there is a valid role, it is applied
+    private void applyRole(MessageReceivedEvent event) {
         if (role != null) {
             try {
                 if (userRolesList.contains(role)) {
@@ -62,7 +82,6 @@ public class DotRole extends ListenerAdapter {
                 }
             } catch (PermissionException e) {
                 channel.sendMessage("You don't have permission to self-assign the " + content + " role!").queue();
-                //channel.sendMessage(e.toString()).queue();
             }
         }
     }
