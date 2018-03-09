@@ -10,11 +10,16 @@ import net.dv8tion.jda.core.JDABuilder;
  */
 public class Bot {
     public static void main(String[] args) throws Exception {
-        JDA api = new JDABuilder(AccountType.BOT).setToken("NDE1NjA2OTcyMjA2MDIyNjU5.DW5Hkg.kIof7R10-fKa-XqEfBLflyb262A").buildAsync();
-        api.addEventListener(new DotPing());
-        api.addEventListener(new Welcome());
-        api.addEventListener(new DotRoles());
-        api.addEventListener(new DotRole());
-        api.addEventListener(new DotDerole());
+        JDA api = new JDABuilder(AccountType.BOT).setToken("NDIxNDcwNjI1Nzc3OTc1MzA2.DYNs5w.qFM9JkGJwfjgiNsrCe84jx1ZOKU").buildAsync();
+        //api.addEventListener(new DotMisc());
+        //api.addEventListener(new Welcome());
+        //api.addEventListener(new DotRoles());
+        //api.addEventListener(new DotRole());
+        //api.addEventListener(new DotDerole());
+        api.addEventListener(new ControlCenter());
+
+
+
+
     }
 }
