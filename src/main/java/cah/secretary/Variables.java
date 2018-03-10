@@ -6,6 +6,7 @@ import static java.util.Arrays.asList;
 
 public class Variables {
     //roles that once assigned, can't self assign other roles
+    private static String token = System.getenv("Token");
     private static String[] restrictedRoles = {
             "Accepted", "Committed", "Undergrad"
     };
@@ -43,5 +44,9 @@ public class Variables {
 
     public static List<String> getLockedRoles() {
         return lockedRoles;
+    }
+
+    public static String getToken() {
+        return token;
     }
 }
