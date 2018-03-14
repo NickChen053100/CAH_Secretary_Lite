@@ -1,10 +1,25 @@
-package cah.secretary;
+package cah.secretary.Control;
 
+import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.Role;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Arrays.asList;
 
 public class Variables {
+    //pad
+    //guild id
+    public static Guild guild;
+    public static String id = "421816521447309324";
+    //welcome quiz arraylist
+    public static List<String> quizIDs = new ArrayList();
+    public static List<Integer> quizScores = new ArrayList();
+    //server roles
+    public static List<Role> serverRoles;
+    //trial role
+    private static String trialRole = "Trial"; //role that while the user has, can't see anything other than the landing
     //roles that once assigned, can't self assign other roles
     private static String token = System.getenv("Token");
     private static String[] restrictedRoles = {
@@ -38,6 +53,9 @@ public class Variables {
             "@everyone"
     );
 
+    public static String getTrialRole() {
+        return trialRole;
+    }
     public static String[] getRestrictedRoles() {
         return restrictedRoles;
     }

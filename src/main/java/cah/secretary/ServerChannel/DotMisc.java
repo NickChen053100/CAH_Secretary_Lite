@@ -1,4 +1,4 @@
-package cah.secretary;
+package cah.secretary.ServerChannel;
 
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;

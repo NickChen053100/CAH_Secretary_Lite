@@ -1,5 +1,6 @@
-package cah.secretary;
+package cah.secretary.ServerChannel;
 
+import cah.secretary.Control.Variables;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
