@@ -1,6 +1,8 @@
 package cah.secretary.ServerChannel;
 
-import cah.secretary.Control.Variables;
+
+import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -9,28 +11,58 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import java.util.List;
 
+import static java.util.Arrays.asList;
+
 public class DotRole extends ListenerAdapter {
     private static MessageChannel channel;
     private static String content;
     private static List<Role> rolesList;
-    private static List<String> lockedRoles;
-    private static String[] restrictedRoles;
     private static List<Role> userRolesList;
+    private static Member member;
+    private static Guild guild;
+    private static String[] restrictedRoles = {
+            "Accepted", "Committed", "Undergrad"
+    };
+    private static List<String> lockedRoles = asList(
+            "Admin",
+            "Dyno",
+            "UB3R-B0T",
+            "Moderator",
+            "Partner",
+            "Admin Emeritus",
+            "Mod Emeritus",
+            "Muted",
+            "Verified",
+            "Committed",
+            "Accepted",
+            "Admissions",
+            "Contributor",
+            "Pulitzer Winner",
+            "Bot Commander",
+            "Bot",
+            "ApplyingToCollegeBot",
+            "Cyan",
+            "(ﾉ◕ヮ◕)ﾉ✧･ﾟ*✧spoo.py✧*･ﾟ✧ヽ(◕ヮ◕)ﾉ",
+            "Tatsumaki",
+            "MathBot",
+            "Botless",
+            "IT Guy",
+            "@everyone"
+    );
+
     private static Role role = null;
 
     public void role(MessageReceivedEvent event) {
         channel = event.getChannel();
         content = event.getMessage().getContentRaw().substring(6);
         rolesList = event.getGuild().getRoles();
-        lockedRoles = Variables.getLockedRoles();
-        role = null;
-        restrictedRoles = Variables.getRestrictedRoles();
         userRolesList = event.getMember().getRoles();
-
+        guild = event.getGuild();
+        member = event.getMember();
         if (restricted())
             return;
         findRole();
-        applyRole(event);
+        applyRole();
     }
 
     //checks if user has Accepted, Committed, or Undergrad roles
@@ -68,14 +100,14 @@ public class DotRole extends ListenerAdapter {
     }
 
     //if there is a valid role, it is applied
-    private void applyRole(MessageReceivedEvent event) {
+    private void applyRole() {
         if (role != null) {
             try {
                 if (userRolesList.contains(role)) {
                     channel.sendMessage("You already have the " + content + " role!").queue();
                 } else {
                     if (!lockedRoles.contains(role.getName())) {
-                        event.getGuild().getController().addSingleRoleToMember(event.getMember(), role).queue();
+                        guild.getController().addSingleRoleToMember(member, role).queue();
                         channel.sendMessage("You now have the " + content + " role!").queue();
 
                     } else

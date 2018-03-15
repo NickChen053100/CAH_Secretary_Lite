@@ -1,9 +1,6 @@
 package cah.secretary.ServerChannel;
 
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.Role;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.exceptions.PermissionException;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
@@ -19,12 +16,14 @@ public class DotDerole extends ListenerAdapter {
     private List<Role> serverRolesList;
     private List<Role> memberRolesList;
     private User user;
+    private static Guild guild;
     private static Role role = null;
     private Member member;
 
     public void derole(MessageReceivedEvent event) {
         channel = event.getChannel();
         content = event.getMessage().getContentRaw().substring(8);
+        guild = event.getGuild();
         serverRolesList = event.getGuild().getRoles();
         user = event.getAuthor();
         member = event.getMember();
@@ -32,7 +31,7 @@ public class DotDerole extends ListenerAdapter {
         if (restricted())
             return;
         findRole();
-        applyDerole(event);
+        applyDerole();
     }
 
     //checks if user has Accepted, Committed, or Undergrad roles
@@ -70,11 +69,11 @@ public class DotDerole extends ListenerAdapter {
     }
 
     //if there is a valid role, it is removed
-    private void applyDerole(MessageReceivedEvent event) {
+    private void applyDerole() {
         if (role != null) {
             try {
                 if (memberRolesList.contains(role)) {
-                    event.getGuild().getController().removeSingleRoleFromMember(member, role).queue();
+                    guild.getController().removeSingleRoleFromMember(member, role).queue();
                     channel.sendMessage("You no longer have the " + content + " role!").queue();
                 } else {
                     channel.sendMessage("You didn't have " + content + " role. Was there a mistake?").queue();
