@@ -21,9 +21,9 @@ public class DotDerole extends ListenerAdapter {
         channel = event.getChannel();
         content = event.getMessage().getContentRaw().substring(8);
         rolesList = event.getGuild().getRoles();
-        restrictedRoles = Variables.getRestrictedRoles();
-        userRolesList = event.getMember().getRoles();
 
+        userRolesList = event.getMember().getRoles();
+        restrictedRoles = Variables.getRestrictedRoles();
         if (restricted())
             return;
         findRole();

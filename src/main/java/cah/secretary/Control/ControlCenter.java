@@ -70,8 +70,6 @@ public class ControlCenter extends ListenerAdapter {
                 instance.scoreUser(user, false, event);
             } else if (msg.equals("c")) {
                 instance.scoreUser(user, true, event);
-                //if m = a, b, or c, 2d list change values based on answer (answer is always C). If 3/3, delete entry.
-                // //Maybe clear every 24 hours
 
             }
         }

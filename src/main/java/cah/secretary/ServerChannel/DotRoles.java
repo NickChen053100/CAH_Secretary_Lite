@@ -24,9 +24,9 @@ public class DotRoles extends ListenerAdapter {
 
     private void printRoles(int a, int b) {
         StringBuilder roles = new StringBuilder();
-        for (int i = a; i < Variables.serverRoles.size() / b; i++) {
-            if (!(lockedRoles.contains(Variables.serverRoles.get(i).getName())))
-                roles.append(Variables.serverRoles.get(i).getName()).append(", ");
+        for (int i = a; i < rolesList.size() / b; i++) {
+            if (!(lockedRoles.contains(rolesList.get(i).getName())))
+                roles.append(rolesList.get(i).getName()).append(", ");
         }
         channel.sendMessage(roles.toString()).queue();
     }
