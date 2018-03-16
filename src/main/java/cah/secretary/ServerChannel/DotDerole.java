@@ -38,8 +38,9 @@ public class DotDerole extends ListenerAdapter {
         boolean verdict = false;
         for (Role aRole : memberRolesList) {
             for (String bRole : restrictedRoles) {
-                if (aRole.getName().equals(bRole)) {
-                    channel.sendMessage("Sorry! " + aRole.getName() + " students can't self derole; please contact staff directly if you would like to change your roles!").queue();
+                if (aRole.getName().toLowerCase().equals(bRole.toLowerCase())) {
+                    channel.sendMessage("Sorry! " + aRole.getName() + " students can't self derole; please " +
+                            "contact staff directly if you would like to change your roles!").queue();
                     verdict = true;
                 }
             }

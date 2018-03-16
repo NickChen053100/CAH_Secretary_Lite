@@ -83,7 +83,7 @@ public class DotRole extends ListenerAdapter {
         boolean match = false;
         while (!match) {
             for (Role r : rolesList) {
-                if (r.getName().equals(content)) {
+                if (r.getName().toLowerCase().equals(content.toLowerCase())) {
                     role = r;
                     match = true;
                     break;

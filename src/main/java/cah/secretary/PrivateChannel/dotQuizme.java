@@ -105,7 +105,6 @@ public class dotQuizme extends ListenerAdapter {
         //items = arrays of ints [currScore, qCount, aCount]
         index = quizIDs.indexOf(id);
         if (correct) {
-
             quizStats.get(index)[0] += 1;
             quizStats.get(index)[2] += 1;
             switch (quizStats.get(index)[0]) {
@@ -118,12 +117,12 @@ public class dotQuizme extends ListenerAdapter {
                     break;
                 case 2:
                     sendPrivateMessage(user, "Nice, another one down! \n your score is now 2/3.\n" +
-                            "Just one more! :triumph: ");
+                            "Just one more! :triumph: Get your next question with ```.quizme```");
 
                     break;
                 default:
                     sendPrivateMessage(user, "Nice, you got it right! \n your score is now 1/3.\n" +
-                            "1 down, 2 to go!");
+                            "1 down, 2 to go! Get your next question with ```.quizme```");
                     break;
             }
 

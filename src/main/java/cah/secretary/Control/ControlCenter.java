@@ -71,6 +71,10 @@ class ControlCenter extends ListenerAdapter {
 
         } else {
 
+
+            //add if user doesn't have Trial role respond with you've already passed the quiz!
+            if (!content.equals(".quizme") && !content.equals("a") && !content.equals("b") && !content.equals("c"))
+                return;
             if (System.currentTimeMillis() - startTime < 2 * 1000) {
                 sendPrivateMessage(user, "Hey hey hey! Calm down, either you're sending messages too fast, or " +
                         "the server is under high load! Try again in a second!");
@@ -78,9 +82,6 @@ class ControlCenter extends ListenerAdapter {
             }
             startTime = System.currentTimeMillis();
             PrivateChannel privateChannel = event.getPrivateChannel();
-            //add if user doesn't have Trial role respond with you've already passed the quiz!
-            if (!content.equals(".quizme") && !content.equals("a") && !content.equals("b") && !content.equals("c"))
-                return;
             Member member = guild.getMember(event.getAuthor());
             List<Role> memberRolesList = member.getRoles();
             boolean match = false;
