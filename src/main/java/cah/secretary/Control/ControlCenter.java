@@ -65,18 +65,15 @@ class ControlCenter extends ListenerAdapter {
                 instance.dotMisc(event);
             }
             //Misc Commands
-            else if (content.equals("china")) {
-                channel.sendMessage("NUMBAH 1!").queue(); // Important to call .queue() on the RestAction returned by sendMessage(...)
-            } else if (content.equals("bot sucks")) {
-                channel.sendMessage("u suck!").queue(); // Important to call .queue() on the RestAction returned by sendMessage(...)
-            } else if (content.equals("zexu")) {
-                channel.sendMessage("yes?").queue(); // Important to call .queue() on the RestAction returned by sendMessage(...)
+            else if (content.equals("bot sucks")) {
+                channel.sendMessage("u suck!").queue();
             }
 
         } else {
 
             if (System.currentTimeMillis() - startTime < 2 * 1000) {
-                sendPrivateMessage(user, "Hey hey hey! Calm down, you're sending messages too fast!");
+                sendPrivateMessage(user, "Hey hey hey! Calm down, either you're sending messages too fast, or " +
+                        "the server is under high load! Try again in a second!");
                 return;
             }
             startTime = System.currentTimeMillis();

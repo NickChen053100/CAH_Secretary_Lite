@@ -141,7 +141,8 @@ public class dotQuizme extends ListenerAdapter {
         guild.getController().removeSingleRoleFromMember(member, guild.getRolesByName(trialRole, true).get(0)).queue();
         TextChannel textChannel = guild.getTextChannelsByName("college_roles", true).get(0);
         textChannel.sendMessage("Congratulations on passing the quiz" + member.getAsMention() + ". Welcome to the " +
-                "server! This is the #college_roles channel. Please give yourself a main role according to the roles" +
+                "server! This is the " + member.getDefaultChannel().getAsMention() + " channel. Please give yourself a " +
+                "main role according to the roles" +
                 " in #rules. \n\n :warning: **A note for Undergrads** :warning: \n\nPlease role your college before you " +
                 "role yourself Undergrad, since Undergrads can't change their own role without the aid of staff\n\n" +
                 "To tag yourself with a role, use the command `.role` followed by the proper role. To remove a " +
