@@ -14,16 +14,10 @@ import java.util.List;
 import static java.util.Arrays.asList;
 
 public class DotRole extends ListenerAdapter {
-    private static MessageChannel channel;
-    private static String content;
-    private static List<Role> rolesList;
-    private static List<Role> userRolesList;
-    private static Member member;
-    private static Guild guild;
-    private static String[] restrictedRoles = {
+    private static final String[] restrictedRoles = {
             "Accepted", "Committed", "Undergrad"
     };
-    private static List<String> lockedRoles = asList(
+    private static final List<String> lockedRoles = asList(
             "Admin",
             "Dyno",
             "UB3R-B0T",
@@ -49,7 +43,12 @@ public class DotRole extends ListenerAdapter {
             "IT Guy",
             "@everyone"
     );
-
+    private static MessageChannel channel;
+    private static String content;
+    private static List<Role> rolesList;
+    private static List<Role> userRolesList;
+    private static Member member;
+    private static Guild guild;
     private static Role role = null;
 
     public void role(MessageReceivedEvent event) {
@@ -101,7 +100,7 @@ public class DotRole extends ListenerAdapter {
 
     //if there is a valid role, it is applied
     private void applyRole() {
-        if (role != null) {
+        if (role != null && rolesList.contains(role)) {
             try {
                 if (userRolesList.contains(role)) {
                     channel.sendMessage("You already have the " + content + " role!").queue();

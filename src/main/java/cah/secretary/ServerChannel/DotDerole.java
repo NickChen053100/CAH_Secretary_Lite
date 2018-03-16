@@ -8,16 +8,15 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import java.util.List;
 
 public class DotDerole extends ListenerAdapter {
-    private static String[] restrictedRoles = {
+    private static final String[] restrictedRoles = {
             "Accepted", "Committed", "Undergrad"
     };
+    private static Guild guild;
+    private static Role role = null;
     private MessageChannel channel;
     private String content;
     private List<Role> serverRolesList;
     private List<Role> memberRolesList;
-    private User user;
-    private static Guild guild;
-    private static Role role = null;
     private Member member;
 
     public void derole(MessageReceivedEvent event) {
@@ -25,7 +24,7 @@ public class DotDerole extends ListenerAdapter {
         content = event.getMessage().getContentRaw().substring(8);
         guild = event.getGuild();
         serverRolesList = event.getGuild().getRoles();
-        user = event.getAuthor();
+        User user = event.getAuthor();
         member = event.getMember();
         memberRolesList = event.getMember().getRoles();
         if (restricted())
