@@ -16,7 +16,7 @@ public class Bot {
         JDA api = new JDABuilder(AccountType.BOT).setToken(System.getenv("Token")).buildBlocking();
         guild = api.getGuildById("421816521447309324");
         api.addEventListener(new ControlCenter());
-        api.getPresence().setGame(Game.playing("as ZeXu's slave"));
+        api.getPresence().setGame(Game.playing("with the staff"));
     }
 
     public static Guild getGuild() {

@@ -36,7 +36,6 @@ public class DotDerole extends ListenerAdapter {
         if (restricted())
             return;
         findRole();
-        applyDerole();
     }
 
     //checks if user has Accepted, Committed, or Undergrad roles
@@ -68,7 +67,7 @@ public class DotDerole extends ListenerAdapter {
                 }
             }
             if (match)
-                break;
+                applyDerole();
             else {
                 channel.sendMessage("Hey uh... I can't find the " + content + " role. Was there a typo...?").queue();
                 match = true;
