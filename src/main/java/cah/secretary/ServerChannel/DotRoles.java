@@ -38,21 +38,21 @@ public class DotRoles extends ListenerAdapter {
             "@everyone"
     );
     private static MessageChannel channel;
-    private static List<Role> rolesList;
+    private static List<Role> collegeRolesList;
 
     public void roles(MessageReceivedEvent event) {
         channel = event.getChannel();
-        rolesList = event.getGuild().getRoles();
+        collegeRolesList = event.getGuild().getRoles();
         channel.sendMessage("The following roles are available for self-assigning: ").queue();
         printRoles(0, 2);
-        printRoles(rolesList.size() / 2, 1);
+        printRoles(collegeRolesList.size() / 2, 1);
     }
 
     private void printRoles(int a, int b) {
         StringBuilder roles = new StringBuilder();
-        for (int i = a; i < rolesList.size() / b; i++) {
-            if (!(lockedRoles.contains(rolesList.get(i).getName())))
-                roles.append(rolesList.get(i).getName()).append(", ");
+        for (int i = a; i < collegeRolesList.size() / b; i++) {
+            if (!(lockedRoles.contains(collegeRolesList.get(i).getName())))
+                roles.append(collegeRolesList.get(i).getName()).append(", ");
         }
         channel.sendMessage(roles.toString().substring(0, roles.length() - 2)).queue();
     }

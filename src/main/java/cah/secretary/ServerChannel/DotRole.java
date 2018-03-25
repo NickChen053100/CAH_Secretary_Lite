@@ -14,33 +14,38 @@ import java.util.List;
 import static java.util.Arrays.asList;
 
 public class DotRole extends ListenerAdapter {
-    private static final String[] restrictedRoles = {
-            "Accepted", "Committed", "Undergrad"
-    };
+
+    private static final List<String> tempRoles = asList(
+            //note when adding temp roles, make it all lowercase
+            "temprole"
+    );
+
+    private static final List<String> restrictedRoles = asList(
+            "accepted", "committed", "undergrad"
+    );
     private static final List<String> lockedRoles = asList(
-            "Admin",
-            "Dyno",
-            "UB3R-B0T",
-            "Moderator",
-            "Partner",
-            "Admin Emeritus",
-            "Mod Emeritus",
-            "Muted",
-            "Verified",
-            "Committed",
-            "Accepted",
-            "Admissions",
-            "Contributor",
-            "Pulitzer Winner",
-            "Bot Commander",
-            "Bot",
-            "ApplyingToCollegeBot",
-            "Cyan",
+            "admin",
+            "dyno",
+            "ub3r-b0t",
+            "moderator",
+            "partner",
+            "admin emeritus",
+            "mod emeritus",
+            "muted",
+            "verified",
+            "accepted",
+            "admissions",
+            "contributor",
+            "pulitzer winner",
+            "bot commander",
+            "bot",
+            "applyingtocollegebot",
+            "cyan",
             "(ﾉ◕ヮ◕)ﾉ✧･ﾟ*✧spoo.py✧*･ﾟ✧ヽ(◕ヮ◕)ﾉ",
-            "Tatsumaki",
-            "MathBot",
-            "Botless",
-            "IT Guy",
+            "tatsumaki",
+            "mathBot",
+            "botless",
+            "it guy",
             "@everyone"
     );
     private static MessageChannel channel;
@@ -53,7 +58,7 @@ public class DotRole extends ListenerAdapter {
 
     public void role(MessageReceivedEvent event) {
         channel = event.getChannel();
-        content = event.getMessage().getContentRaw().substring(6);
+        content = event.getMessage().getContentRaw().substring(6).toLowerCase();
         rolesList = event.getGuild().getRoles();
         userRolesList = event.getMember().getRoles();
         guild = event.getGuild();
@@ -61,16 +66,20 @@ public class DotRole extends ListenerAdapter {
         if (restricted())
             return;
         findRole();
-        applyRole();
     }
 
     //checks if user has Accepted, Committed, or Undergrad roles
     private boolean restricted() {
         boolean verdict = false;
+        if (tempRoles.contains(content))
+            return verdict;
         for (Role aRole : userRolesList) {
             for (String bRole : restrictedRoles) {
-                if (aRole.getName().equals(bRole)) {
-                    channel.sendMessage("Sorry! " + aRole.getName() + " students can't self role; please contact staff directly if you would like to change your roles!").queue();
+                if (aRole.getName().toLowerCase().equals(bRole)) {
+                    if (bRole.equals("undergrad"))
+                        channel.sendMessage("Sorry! " + aRole.getName() + " students can't self role schools; please contact staff directly if you would like to add your school or change it!").queue();
+                    else
+                        channel.sendMessage("Sorry! " + aRole.getName() + " students can't self role schools; please contact staff directly if you would like to change your roles!").queue();
                     verdict = true;
                 }
             }
@@ -81,20 +90,17 @@ public class DotRole extends ListenerAdapter {
     //checks if role is in rolesList
     private void findRole() {
         boolean match = false;
-        while (!match) {
-            for (Role r : rolesList) {
-                if (r.getName().toLowerCase().equals(content.toLowerCase())) {
-                    role = r;
-                    match = true;
-                    break;
-                }
-            }
-            if (match)
-                break;
-            else {
-                channel.sendMessage("Hey uh... I can't find the " + content + " role. Was there a typo...?").queue();
+        for (Role r : rolesList) {
+            if (r.getName().toLowerCase().equals(content)) {
+                role = r;
                 match = true;
+                break;
             }
+        }
+        if (match)
+            applyRole();
+        else {
+            channel.sendMessage("Hey uh... I can't find the " + content + " role. Was there a typo...?").queue();
         }
     }
 
@@ -105,7 +111,17 @@ public class DotRole extends ListenerAdapter {
                 if (userRolesList.contains(role)) {
                     channel.sendMessage("You already have the " + content + " role!").queue();
                 } else {
-                    if (!lockedRoles.contains(role.getName())) {
+                    if (!lockedRoles.contains(role.getName().toLowerCase())) {
+
+                        if (role.getName().toLowerCase().equals("undergrad")) {
+                            for (Role role : userRolesList) {
+                                if (rolesList.contains(role))
+                                    guild.getController().removeSingleRoleFromMember(member, role).queue();
+
+                            }
+                            channel.sendMessage("If you would like to role yourself with your school, " +
+                                    "please contact a staff member and verify your attendance!").queue();
+                        }
                         guild.getController().addSingleRoleToMember(member, role).queue();
                         channel.sendMessage("You now have the " + content + " role!").queue();
 

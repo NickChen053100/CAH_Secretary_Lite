@@ -7,10 +7,16 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import java.util.List;
 
+import static java.util.Arrays.asList;
+
 public class DotDerole extends ListenerAdapter {
-    private static final String[] restrictedRoles = {
-            "Accepted", "Committed", "Undergrad"
-    };
+    private static final List<String> tempRoles = asList(
+            //note when adding temp roles, make it all lowercase
+            "temprole"
+    );
+    private static final List<String> restrictedRoles = asList(
+            "accepted", "committed", "undergrad"
+    );
     private static Guild guild;
     private static Role role = null;
     private MessageChannel channel;
@@ -21,7 +27,7 @@ public class DotDerole extends ListenerAdapter {
 
     public void derole(MessageReceivedEvent event) {
         channel = event.getChannel();
-        content = event.getMessage().getContentRaw().substring(8);
+        content = event.getMessage().getContentRaw().substring(8).toLowerCase();
         guild = event.getGuild();
         serverRolesList = event.getGuild().getRoles();
         User user = event.getAuthor();
@@ -36,6 +42,8 @@ public class DotDerole extends ListenerAdapter {
     //checks if user has Accepted, Committed, or Undergrad roles
     private boolean restricted() {
         boolean verdict = false;
+        if (tempRoles.contains(content))
+            return verdict;
         for (Role aRole : memberRolesList) {
             for (String bRole : restrictedRoles) {
                 if (aRole.getName().toLowerCase().equals(bRole.toLowerCase())) {
@@ -53,7 +61,7 @@ public class DotDerole extends ListenerAdapter {
         boolean match = false;
         while (!match) {
             for (Role r : serverRolesList) {
-                if (r.getName().equals(content)) {
+                if (r.getName().toLowerCase().equals(content)) {
                     role = r;
                     match = true;
                     break;

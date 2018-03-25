@@ -1,12 +1,10 @@
 package cah.secretary.Control;
 
-import cah.secretary.PrivateChannel.Welcome;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.entities.Guild;
-
 
 /**
  * @author ZeXu
@@ -18,9 +16,7 @@ public class Bot {
         JDA api = new JDABuilder(AccountType.BOT).setToken(System.getenv("Token")).buildBlocking();
         guild = api.getGuildById("421816521447309324");
         api.addEventListener(new ControlCenter());
-        api.addEventListener(new Welcome());
         api.getPresence().setGame(Game.playing("as ZeXu's slave"));
-
     }
 
     public static Guild getGuild() {
